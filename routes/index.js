@@ -5,27 +5,27 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //get data from db and send through the route to the index.bhs view and then render
-  connect.query('SELECT name, avatar FROM hero', (error, result)=>{
+  connect.query('SELECT pokemon_name, pokemon_img FROM tbl_pokemon', (error, result)=>{
     if(error){
       throw error;
       console.log(error);
     }else{
       console.log(result);
-        res.render('index', { avatars: result });
+        res.render('index', { pokemons: result });
     }
   })
 });
 
-/* GET avatar page. */
-router.get('/:hero', function(req, res, next) {
+/* GET pokemon page. */
+router.get('/:pokemon', function(req, res, next) {
   //get data from db and send through the route to the index.bhs view and then render
-  connect.query(`SELECT * FROM hero WHERE name="${req.params.hero}"`, (error, result)=>{
+  connect.query(`SELECT * FROM tbl_pokemon WHERE pokemon_name="${req.params.pokemon}"`, (error, result)=>{
     if(error){
       throw error;
       console.log(error);
     }else{
       console.log(result);
-        res.render('bio', { bioData: result[0] });
+        res.render('pokemon', { pokemonData: result[0] });
     }
   })
 });
